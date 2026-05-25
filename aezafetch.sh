@@ -27,13 +27,24 @@ ic="${reset}${bold}${white}"
 c0="${reset}${bold}${cyan}"
 c1="${reset}${cyan}"
 
+## DETECT DISTRO FOR COLORS
+case "${os}" in
+    *Arch*)      c0="${reset}${bold}${cyan}";   c1="${reset}${cyan}"    ;;
+    *Ubuntu*)    c0="${reset}${bold}${red}";    c1="${reset}${yellow}"  ;;
+    *Debian*)    c0="${reset}${bold}${red}";    c1="${reset}${red}"     ;;
+    *Fedora*)    c0="${reset}${bold}${blue}";   c1="${reset}${white}"   ;;
+    *CentOS*)    c0="${reset}${bold}${yellow}"; c1="${reset}${white}"   ;;
+    *Alpine*)    c0="${reset}${bold}${blue}";   c1="${reset}${white}"   ;;
+    *)           c0="${reset}${bold}${white}";  c1="${reset}${white}"   ;;
+esac
+
 ## OUTPUT
 cat <<EOF
-${c0}        /\        ${nc}${USER}${ic}@${nc}${host}${reset}
-${c0}       /^^\       ${lc}OS:        ${ic}${os}${reset}
-${c0}      /\   \      ${lc}KERNEL:    ${ic}${kernel}${reset}
-${c0}     /  ${c1}__  \     ${lc}UPTIME:    ${ic}${uptime}${reset}
-${c1}    /  (  )  \    ${lc}SHELL:     ${ic}${shell}${reset}
-${c1}   / __|  |__\\\\   ${reset}
-${c1}  ///        \\\\\  ${reset}
+
+  ${nc}${USER}${ic}@${nc}${host}${reset}
+  ${lc}OS:        ${ic}${os}${reset}
+  ${lc}KERNEL:    ${ic}${kernel}${reset}
+  ${lc}UPTIME:    ${ic}${uptime}${reset}
+  ${lc}SHELL:     ${ic}${shell}${reset}
+
 EOF
