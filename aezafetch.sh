@@ -21,9 +21,9 @@ cyan="$(tput setaf 6)"
 white="$(tput setaf 7)"
 reset="$(tput sgr0)"
 
-lc="${reset}${bold}${cyan}"
 nc="${reset}${bold}${cyan}"
 ic="${reset}${bold}${white}"
+lc="${reset}${bold}${white}"
 c0="${reset}${bold}${cyan}"
 c1="${reset}${cyan}"
 
