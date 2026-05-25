@@ -4,64 +4,68 @@
 
 ## INFO
 host="$(hostname)"
+user="${USER}"
+
 os="$(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '"')"
 kernel="$(uname -sr)"
 uptime="$(uptime -p | sed 's/up //')"
-shell="$(basename ${SHELL})"
+shell="$(basename "$SHELL")"
 
-## DEFINE COLORS
+## LOCATION
+location="$(curl -fsSL https://ipapi.co/country_name/ 2>/dev/null || echo "Unknown")"
+
+## COLORS
 bold="$(tput bold)"
-black="$(tput setaf 0)"
-red="$(tput setaf 1)"
-green="$(tput setaf 2)"
-yellow="$(tput setaf 3)"
-blue="$(tput setaf 4)"
-magenta="$(tput setaf 5)"
-cyan="$(tput setaf 6)"
-white="$(tput setaf 7)"
 reset="$(tput sgr0)"
 
-nc="${reset}${bold}${white}"
-ic="${reset}${bold}${white}"
-lc="${reset}${bold}${white}"
-c0="${reset}${bold}${white}"
-c1="${reset}${white}"
+white="$(tput setaf 7)"
+cyan="$(tput setaf 6)"
 
-## DETECT DISTRO FOR COLORS
-case "${os}" in
-    *Arch*)      c0="${reset}${bold}${cyan}";   c1="${reset}${cyan}"    ;;
-    *Ubuntu*)    c0="${reset}${bold}${red}";    c1="${reset}${yellow}"  ;;
-    *Debian*)    c0="${reset}${bold}${red}";    c1="${reset}${red}"     ;;
-    *Fedora*)    c0="${reset}${bold}${blue}";   c1="${reset}${white}"   ;;
-    *CentOS*)    c0="${reset}${bold}${yellow}"; c1="${reset}${white}"   ;;
-    *Alpine*)    c0="${reset}${bold}${blue}";   c1="${reset}${white}"   ;;
-    *)           c0="${reset}${bold}${white}";  c1="${reset}${white}"   ;;
-esac
+## ASCII ART
+art_1="   :::::::::::::::::::-:"
+art_2=" :::::..............:::::::"
+art_3="::..........:*##-......:::-:"
+art_4="::..........:#@@-........::::"
+art_5="::..........:==:.........:::::"
+art_6="::.......:=#@@@@#-:......:::::"
+art_7="::......-@@@@*#@@@%:.....:::::"
+art_8="::.....:@@@+...:#@@*:....:::::"
+art_9="::.....-@@@@@@@@@@@%:....:::::"
+art_10="::.....:@@@+...::::::....:::::"
+art_11="::......=@@@#++#@@@=.....:::::"
+art_12=":::......:+@@@@@@*:......:::::"
+art_13=" ::.........::::.........:::::"
+art_14=" ::::::::::::::::::::::::::-:"
+art_15="  ::::::::::::::::::::::::::"
+art_16="     ::::::::::::::::::::"
 
-## OUTPUT
-cat <<EOF
-${white}
-${white}   :::::::::::::::::::-:
-${white} :::::..............:::::::
-${white}::..........:*##-......:::-:
-${white}::..........:#@@-........::::
-${white}::..........:==:.........:::::
-${white}::.......:=#@@@@#-:......:::::
-${white}::......-@@@@*#@@@%:.....:::::
-${white}::.....:@@@+...:#@@*:....:::::
-${white}::.....-@@@@@@@@@@@%:....:::::
-${white}::.....:@@@+...::::::....:::::
-${white}::......=@@@#++#@@@=.....:::::
-${white}:::......:+@@@@@@*:......:::::
-${white} ::.........::::.........:::::
-${white} ::::::::::::::::::::::::::-:
-${white}  ::::::::::::::::::::::::::
-${white}     ::::::::::::::::::::
-${reset}
-  ${lc}${USER}@${host}${reset}
-  ${lc}OS:        ${ic}${os}${reset}
-  ${lc}KERNEL:    ${ic}${kernel}${reset}
-  ${lc}UPTIME:    ${ic}${uptime}${reset}
-  ${lc}SHELL:     ${ic}${shell}${reset}
+## INFO BLOCK
+info_1="${bold}${white}${user}@${host}${reset}"
+info_2="OS:        ${os}"
+info_3="KERNEL:    ${kernel}"
+info_4="UPTIME:    ${uptime}"
+info_5="SHELL:     ${shell}"
+info_6="LOCATION:  ${location}"
 
-EOF
+## PRINT
+printf "\n"
+
+printf "${white}%-38s${reset} %b\n" "$art_1" "$info_1"
+printf "${white}%-38s${reset} %b\n" "$art_2" "$info_2"
+printf "${white}%-38s${reset} %b\n" "$art_3" "$info_3"
+printf "${white}%-38s${reset} %b\n" "$art_4" "$info_4"
+printf "${white}%-38s${reset} %b\n" "$art_5" "$info_5"
+printf "${white}%-38s${reset} %b\n" "$art_6" "$info_6"
+
+printf "${white}%s${reset}\n" "$art_7"
+printf "${white}%s${reset}\n" "$art_8"
+printf "${white}%s${reset}\n" "$art_9"
+printf "${white}%s${reset}\n" "$art_10"
+printf "${white}%s${reset}\n" "$art_11"
+printf "${white}%s${reset}\n" "$art_12"
+printf "${white}%s${reset}\n" "$art_13"
+printf "${white}%s${reset}\n" "$art_14"
+printf "${white}%s${reset}\n" "$art_15"
+printf "${white}%s${reset}\n" "$art_16"
+
+printf "\n"
