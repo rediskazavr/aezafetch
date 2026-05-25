@@ -1,35 +1,15 @@
 #!/bin/sh
 #
-# ufetch-arch - tiny system info for arch
+# aezafetch - tiny system info for aeza servers
 
 ## INFO
-
-# user is already defined
 host="$(hostname)"
-os='Arch Linux'
+os="$(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '"')"
 kernel="$(uname -sr)"
 uptime="$(uptime -p | sed 's/up //')"
-packages="$(pacman -Q | wc -l)"
 shell="$(basename ${SHELL})"
 
-if [ -z "${WM}" ]; then
-	if [ "${XDG_CURRENT_DESKTOP}" ]; then
-		envtype='DE'
-		WM="${XDG_CURRENT_DESKTOP}"
-	elif [ "${DESKTOP_SESSION}" ]; then
-		envtype='DE'
-		WM="${DESKTOP_SESSION}"
-	else
-		envtype='WM'
-		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
-	fi
-else
-	envtype='WM'
-fi
-
 ## DEFINE COLORS
-
-# probably don't change these
 bold="$(tput bold)"
 black="$(tput setaf 0)"
 red="$(tput setaf 1)"
@@ -41,23 +21,19 @@ cyan="$(tput setaf 6)"
 white="$(tput setaf 7)"
 reset="$(tput sgr0)"
 
-# you can change these
-lc="${reset}${bold}${cyan}"		# labels
-nc="${reset}${bold}${cyan}"		# user and hostname
-ic="${reset}${bold}${white}"	# info
-c0="${reset}${bold}${cyan}"		# first color
-c1="${reset}${cyan}"			# second color
+lc="${reset}${bold}${cyan}"
+nc="${reset}${bold}${cyan}"
+ic="${reset}${bold}${white}"
+c0="${reset}${bold}${cyan}"
+c1="${reset}${cyan}"
 
 ## OUTPUT
-
 cat <<EOF
-
 ${c0}        /\        ${nc}${USER}${ic}@${nc}${host}${reset}
 ${c0}       /^^\       ${lc}OS:        ${ic}${os}${reset}
 ${c0}      /\   \      ${lc}KERNEL:    ${ic}${kernel}${reset}
 ${c0}     /  ${c1}__  \     ${lc}UPTIME:    ${ic}${uptime}${reset}
-${c1}    /  (  )  \    ${lc}PACKAGES:  ${ic}${packages}${reset}
-${c1}   / __|  |__\\\\   ${lc}SHELL:     ${ic}${shell}${reset}
-${c1}  ///        \\\\\  ${lc}${envtype}:        ${ic}${WM}${reset}
-
+${c1}    /  (  )  \    ${lc}SHELL:     ${ic}${shell}${reset}
+${c1}   / __|  |__\\\\   ${reset}
+${c1}  ///        \\\\\  ${reset}
 EOF
