@@ -41,11 +41,11 @@ art_16="     ::::::::::::::::::::"
 
 ## INFO BLOCK
 info_1="${bold}${white}${user}@${host}${reset}"
-info_2="OS:        ${os}"
-info_3="KERNEL:    ${kernel}"
-info_4="UPTIME:    ${uptime}"
-info_5="SHELL:     ${shell}"
-info_6="LOCATION:  ${location}"
+info_2="os:        ${os}"
+info_3="kernel:    ${kernel}"
+info_4="uptime:    ${uptime}"
+info_5="shell:     ${shell}"
+info_6="location:  ${location}"
 
 ## PRINT
 printf "\n"
