@@ -27,7 +27,7 @@ virt="$(systemd-detect-virt 2>/dev/null)"
 [ -z "$virt" ] && virt="unknown"
 
 ## LOCATION
-location="$(curl -fsSL https://ipapi.co/country_name/ 2>/dev/null || echo "Unknown")"
+location="$(curl -fsSL https://ipinfo.io/country 2>/dev/null || curl -fsSL https://ifconfig.co/country 2>/dev/null || echo "unknown")"
 
 ## SERVER TYPE DETECTION
 server_type="unknown"
